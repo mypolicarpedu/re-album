@@ -1,2 +1,2 @@
 # re-album
-Machine Learning Project for Music Appreciation
+Machine Learning Project for Music Recommendation
