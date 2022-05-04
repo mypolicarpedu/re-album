@@ -5,7 +5,7 @@
 
 #File handles all the functionality necessary for simple music recommandation system
 
-
+#numpy for math functions
 import numpy as np
 
 #for the dataframes
@@ -112,42 +112,29 @@ def main():
     #print(tsne_result[1])
 
     #different songs and how to fetch their points
-    #point = fetch_song_point(searchcopy, 'While I Was Walking', 'Tommy McCook', tsne_result) 
+    point2 = fetch_song_point(searchcopy, 'While I Was Walking', 'Tommy McCook', tsne_result) 
     point = fetch_song_point(searchcopy, 'Mashed Potato Time', 'Dee Dee Sharp', tsne_result)
 
-    #point2 = fetch_song_point(searchcopy, 'No Tears Left To Cry', 'Ariana Grande', tsne_result)
+    point3 = fetch_song_point(searchcopy, 'No Tears Left To Cry', 'Ariana Grande', tsne_result)
 
     #invaid song test that throws error
     #error_point = fetch_song_point(searchcopy, 'Invalid Name', 'Invalid Name', tsne_result)
 
+    #test point
     #point = [(24,24)]
     print("Point fetched to cater recommandations to: " + str(point))
+    print("Point fetched to cater recommandations to: " + str(point2))
 
-    song_test(proj, labelcopy, printoutcopy, point)
+    pointlist = [point,point2]
 
-    """
-    distances = cdist(point, proj, 'euclidean')
-    print(distances)
-    index = np.argsort(distances[0])
-    print(index)
-    print(index[:10])
-
-    shortened = index[:10]
-    #shortened = index[:10]
-    #print(shortened, 100)
-
-    printoutcopy['distance'] = distances.tolist()[0]
-
-    print(labelcopy.loc[shortened])
-    print(printoutcopy.loc[shortened])
-    """
-
+    averagepoint = average_song_points(pointlist)
+    #single run example
+    song_test(proj, labelcopy, printoutcopy, point3)
+    #average run example
+    #song_test(proj, labelcopy, printoutcopy, averagepoint)
+    #song_test(proj, labelcopy, printoutcopy, point)
     
-
-    #song_test(proj, labelcopy, printoutcopy)
-    #distances = cdist
-    #fashion_scatter(tsne_result)
-
+    #maybe pipeline for future use with different features
     #tsne_pipeline = Pipeline([('scaler', StandardScaler()), ('tsne', TSNE(n_components=2, verbose=2))])
     #genre_embedding = tsne_pipeline.fit_transform(X)
 
@@ -171,7 +158,7 @@ def song_test(input_data,label_data,print_data,point):
     #append distance data to the list for relevant output
     print_data['distance'] = distances.tolist()[0]
 
-    print("Recommendation album - including the input song:")
+    print("Recommendation album - including the input song (if not an average):")
     print("------------------------------------------------")
     #to pick a different printout type with just labels
     #print(label_data.loc[shortened])
@@ -200,7 +187,7 @@ def fetch_song_point(label_data, songname, artistname, tsne_result):
             
             return result
     
-#function to average out song pointss
+#function to average out song points, can take any amount of song points
 def average_song_points(point_list):
     print("Averaging song points!")
     sumx = 0
@@ -208,13 +195,26 @@ def average_song_points(point_list):
     count = 0
 
     for point in point_list:
-        sumx = sumx + point[0]
-        sumy = sumy + point[1]
+        sumx = sumx + point[0][0]
+        sumy = sumy + point[0][1]
         count = count + 1
     
-    output = tuple(sumx/count,sumy/count)
+    if point_list:
+        avgx = sumx/count
+        avgy = sumy/count
 
-    outputlist = [output]
+    list = [(avgx, avgy)]
+
+    output = np.array(list)
+
+    print("Average point value found:")
+    print(output)
+    #print(output.shape())
+    #output[0][0] = sumx/count
+    #output[0][1] = sumy/count
+    #print(output)
+
+    #outputlist = [output]
 
     return output
 
