@@ -42,8 +42,8 @@ import plotly.express as px
 
 def load_data():
     print("Loading data!")
-    hello = [("Hello", 10), ("I am bigger", 1500)]
 
+    #load data from desired data set (provided in the github)
     spotify_data = pd.read_csv('./spotify_dataset.csv')
 
 
@@ -53,45 +53,27 @@ def load_data():
 
 #main function for project functionality
 def main():
-    print("This is the machine learning project!")
+    print("Welcome to Re-album! Let us recommend songs for you!")
+    print("----------------------------------------------------")
     data = load_data()
-    #print(data)
 
-    #sound_features = ['acousticness', 'danceability', 'energy', 'instrumentalness', 'liveness', 'valence']
-    #fig = px.line(data, x='decade', y=sound_features)
-    #fig = px.line(data, x='speechiness', y='key')
-    #fig.show()
-
-    #f,ax = plt.subplots(figsize=(18, 18))
-    #sns.heatmap(data.corr(), annot=True, linewidths=.5, fmt= '.1f',ax=ax)
-    #plt.show()
-
-    #numeric = data.drop(['track','artist', 'uri'],  axis=1)
-    #small = numeric.drop(['tempo','duration_ms','key','loudness','time_signature'], axis=1)
-    #sns.set_palette('pastel')
-    #small.mean().plot.bar()
-    #plt.title('Mean Values of Audio Features')
-    #plt.show()
-
-    #fig =  px.scatter(data, x='danceability', y='energy',hover_data=['danceability', 'energy', 'track'])
-    #fig.show()
-
+    #used to cut data and increase runtime for tests
     #data = data.head(1000)
 
     #drop all but label
     labelcopy = data.copy()
     labelcopy.drop(data.columns.difference(['track']), 1, inplace=True)
-    print(labelcopy)
+    #print(labelcopy)
 
     #used for searching out the songs for later, only leave track and artist
     searchcopy = data.copy()
     searchcopy.drop(data.columns.difference(['track','artist']), 1, inplace=True)
-    print(searchcopy)
+    #print(searchcopy)
 
     #used for printing out information, the index is used to match up values between copies
     printoutcopy = data.copy()
     printoutcopy.drop(data.columns.difference(['track','artist','uri']), 1, inplace=True)
-    print(printoutcopy)
+    #print(printoutcopy)
 
     #actual feature editing can be done here------------
     #an additional example of features not used
