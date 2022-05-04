@@ -1,4 +1,7 @@
 
+#Michael Policarpio
+##BETA TEST FILE, can ignore for final project purposes!
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
