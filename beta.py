@@ -24,6 +24,8 @@ import os
 import plotly.express as px
 #%matplotlib inline
 
+#sp = spotipy.Spotify
+
 
 def load_data():
     print("Loading data!")
@@ -61,7 +63,7 @@ def main():
     #fig =  px.scatter(data, x='danceability', y='energy',hover_data=['danceability', 'energy', 'track'])
     #fig.show()
 
-    #data = data.head(5000)
+    #data = data.head(1000)
 
     #drop all but label
     labelcopy = data.copy()
@@ -103,9 +105,10 @@ def main():
 
     #point = fetch_song_point(searchcopy, 'While I Was Walking', 'Tommy McCook', tsne_result)
     
-    #point = fetch_song_point(searchcopy, 'Mashed Potato Time', 'Dee Dee Sharp', tsne_result)
+    point = fetch_song_point(searchcopy, 'Mashed Potato Time', 'Dee Dee Sharp', tsne_result)
 
-    point = fetch_song_point(searchcopy, 'No Tears Left To Cry', 'Ariana Grande', tsne_result)
+    #point = fetch_song_point(searchcopy, 'No Tears Left To Cry', 'Ariana Grande', tsne_result)
+
     error_point = fetch_song_point(searchcopy, 'Invalid Name', 'Invalid Name', tsne_result)
 
     print("song tested")
@@ -145,7 +148,7 @@ def song_test(input_data,label_data,print_data):
     point = [(24,24)]
 
 
-    distances = cdist(point, input_data, 'euclidean')
+    distances = cdist(point, input_data, 'cosine')
     print(distances)
     index = np.argsort(distances[0])
     print(index)
@@ -172,18 +175,15 @@ def fetch_song_point(label_data, songname, artistname, tsne_result):
             print(temp[0])
             result = tsne_result[temp[0]]
 
-            if temp == None:
+            if len(result) == 0:
                 print("no song found in set...")
+                return "not found"
+                #return("Error")
             print(result)
-
-
-            return result
             
-    else:
-        print("no song found in set...")
-        return None
+            return result
     
-        
+
 
   
 
