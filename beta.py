@@ -81,6 +81,8 @@ def main():
     printoutcopy.drop(data.columns.difference(['track','artist','uri']), 1, inplace=True)
     print(printoutcopy)
 
+    data['decade'].str.replace("s","")
+    print(data)
     #data.drop(['track', 'artist', 'uri', 'mode','decade','key','time_signature', 'sections', 'popularity'], axis=1, inplace=True)
     data.drop(['track', 'artist', 'uri', 'mode','decade'], axis=1, inplace=True)
     print(data.shape)

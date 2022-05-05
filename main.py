@@ -78,6 +78,9 @@ def main():
     #actual feature editing can be done here------------
     #an additional example of features not used
     #data.drop(['track', 'artist', 'uri', 'mode','decade','key','time_signature', 'sections', 'popularity'], axis=1, inplace=True)
+    #additonal optition to remove s from decades for additional feature checking (stil in testing phase)
+    #data = data['decade'].str.replace("s","")
+    #print(data)
     data.drop(['track', 'artist', 'uri', 'mode','decade'], axis=1, inplace=True)
 
     #clean printouts for user to know what they are working with
